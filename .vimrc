@@ -15,6 +15,12 @@
 " have made, as well as sanely reset options when re-sourcing .vimrc
 ""set nocompatible
  
+set runtimepath^=/auto/software/tools/vim-addons/bundle
+execute pathogen#infect()
+filetype plugin indent on
+
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
@@ -29,6 +35,13 @@ nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>                                                                            
 nnoremap <C-k> :tabnext<CR>
+
+"Display file-tree
+nnoremap <C-n> :silent! NERDTreeToggle<CR>
+nnoremap <C-x> :silent! NERDTreeFind<CR>
+
+map <C-c> "+y
+map <C-v> "+p
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 cs add cscope.out
@@ -38,8 +51,14 @@ function! Csc()
 endfunction
 command! B call Csc()
 
-map <F5> :!cscope -Rb<CR>:cs reset<CR><CR> 
+"Reload file from disc
+map <F5> :e<CR>
+"Trace back function calls
+map <F6> :!cscope -Rb<CR>:cs reset<CR><CR> 
 
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 "------------------------------------------------------------
 " Must have options {{{1
 "
