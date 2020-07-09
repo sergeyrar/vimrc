@@ -16,9 +16,12 @@
 ""set nocompatible
  
 set runtimepath^=/auto/software/tools/vim-addons/bundle
-execute pathogen#infect()
+" execute pathogen#infect()
 filetype plugin indent on
 
+" Set swap file directory
+set swapfile
+set dir=~/tmp
 
 
 " Attempt to determine the type of a file based on its name and possibly its
@@ -35,6 +38,8 @@ nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>                                                                            
 nnoremap <C-k> :tabnext<CR>
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
 
 "Display file-tree
 nnoremap <C-n> :silent! NERDTreeToggle<CR>
@@ -44,7 +49,7 @@ map <C-c> "+y
 map <C-v> "+p
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
-cs add cscope.out
+cs add /proj/sergey/platform/cscope.out
 
 function! Csc()
   cscope find c <cword>
@@ -52,9 +57,9 @@ endfunction
 command! B call Csc()
 
 "Reload file from disc
-map <F5> :e<CR>
+map <F5> :e<CR> 
 "Trace back function calls
-map <F6> :!cscope -Rb<CR>:cs reset<CR><CR> 
+map <F6> :!cscope -Rb && rm -f tags && ctags -R * 2>/dev/null<CR>:cs reset<CR><CR> 
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
@@ -191,4 +196,3 @@ map Y y$
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
- 
